@@ -1,75 +1,84 @@
-# React + TypeScript + Vite
+# ⌨️ Unified Developer Keyboard Shortcuts Cheat Sheet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, keyboard-centric interactive cheat sheet designed for rapid context-switching. Automatically adapts keybindings based on your active operating system while prioritizing core frontend and software engineering platforms.
 
-Currently, two official plugins are available:
+**🔗 Live Demo:** [https://frontend-dev-shortcuts.vercel.app/](https://frontend-dev-shortcuts.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ⚡ Core Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Dynamic OS Detection & Localization:** Automatically detects and translates system key notations on load (e.g., mapping `ctrl` to `⌘ Cmd` and `alt` to `⌥ Opt` on macOS). Includes native macOS `control` overrides for precise bindings.
+* **Interactive OS Switcher:** Allows developers to preview shortcut combinations for **Windows**, **macOS**, and **Linux** dynamically with a single toggle.
+* **Core Dev Priority Filters:** On load, the interface focuses exclusively on Frontend and general engineering categories (VS Code, Edge/Chrome, Git, Vimium). General productivity and creative design applications (Office, Adobe Creative Suite) can be unlocked instantly via the **Show Productivity & Design Apps** panel.
+* **Instant Keyboard Navigation:** Press `/` anywhere on the screen to focus the global fuzzy-search bar immediately.
+* **Atomic Architecture:** Highly modular layout separating atomic styling primitives (`Button`, `Card`, `Kbd`) from isolated feature-specific selectors and grids.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Technology Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* **Framework:** [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+* **Build Tool:** [Vite](https://vitejs.dev/) (Ultra-fast HMR)
+* **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) (Modern CSS-first approach, natively compiled)
+* **Icons:** [Lucide React](https://lucide.dev/)
+* **Formatting Utilities:** `clsx` & `tailwind-merge`
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📂 Project Architecture
 
+The codebase utilizes an **Atomic and Domain-Driven design** to isolate reusable UI wrappers from dynamic state logic:
+
+```text
+src/
+├── data/                      # Structured shortcut datasets
+│   └── shortcuts.json         # Master database with OS overrides
+├── utils/
+│   ├── os.ts                  # OS detection & key symbol translator
+│   └── cn.ts                  # Tailwind class merge utility
+├── components/
+│   ├── ui/                    # Reusable atomic elements (Atoms)
+│   │   ├── Button.tsx
+│   │   ├── Card.tsx
+│   │   └── Kbd.tsx            # Realistic keyboard keycap container
+│   └── features/              # Feature specific modules (Molecules/Organisms)
+│       └── shortcuts/
+│           ├── components/    # Sub-components isolated to shortcut filtering
+│           │   ├── CategoryFilter.tsx
+│           │   ├── SearchBar.tsx
+│           │   ├── ShortcutCard.tsx
+│           │   └── ShortcutList.tsx
+│           ├── hooks/         # Custom dynamic filtering hooks
+│           │   └── useShortcuts.ts
+│           └── types.ts       # Structural TypeScript definitions
+├── App.tsx                    # Main viewport layout container
+├── main.tsx
+└── index.css                  # Tailwind imports
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To spin up a local development environment or compile a production bundle:
 
+### 1. Installation
+Install your node modules using clean installations:
+```bash
+npm ci
 ```
+
+### 2. Development Mode
+Run the local Vite HMR server:
+```bash
+npm run dev
+```
+Open your browser to `http://localhost:5173`.
+
+### 3. Build & Compile
+Run the TypeScript compiler and optimize output for production delivery:
+```bash
+npm run build
+```
+The compiled output will generate in the `/dist` directory, ready to deploy seamlessly on Vercel or Netlify.
